@@ -1,0 +1,3 @@
+/home/vitor/Documentos/Wordspace/Shell-Sistema_Operacionais/cmake-build-debug/CMakeFiles/Shell_Sistema_Operacionais.dir
+/home/vitor/Documentos/Wordspace/Shell-Sistema_Operacionais/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/vitor/Documentos/Wordspace/Shell-Sistema_Operacionais/cmake-build-debug/CMakeFiles/rebuild_cache.dir
