@@ -8,7 +8,11 @@
 
 #define TAM 300
 #define STG_PIPE "|"
-#define PONTA_LEITURA 0
+#define STG_INPUT_FILE "<"  
+//cat -n < arquivo.txto comando irá exibir as linhas do arquivo arquivo.txt numeradas.
+#define STG_OUTPUT_FILE ">" 
+//O comando echo "ola mundo" > arquivo.txt escreve a string "ola mundo" no arquivo de nome "arquivo.txt". Se o arquivo não existir, ele será criado. Se já existir, seu conteúdo será substituído pelo novo conteúdo.
+#define PONTA_LEITURA 0 
 #define PONTA_ESCRITA 1
 
 
@@ -80,6 +84,39 @@ void criaPipe(int *pipefd){
     if(pipe(pipefd) == -1) { // Criar um pipe
         perror("Falha na criacao do pipe");
         exit(1);
+    }
+}
+
+void readFile(FILE *fp,char namefile[]){
+    if ((fp = fopen(namefile, "r")) == NULL){
+        perror("Falha na Leitura");
+        exit(1);
+    }else{
+        char entry[120];
+        while (!feof(p)){
+            if (!filelength(fileno(p))){  /* teste para saber se o tamanho do arquivo é zero */
+                break;
+            }
+            fgets(entry,120, p);
+            printf("\n%s",entry);
+        }
+    }
+}
+
+void writeFile(FILE *fp,char namefile[],char text[120]){
+    if ((fp = fopen(namefile, "W")) == NULL){
+        printf("Erro ao criar arquivo");
+    }else{
+        fprintf(fp, "%s",text);
+    }
+}
+
+void IOfile(char *args[], int tam_arg, int init){
+    char namefile[120];
+    for(int i = init;i < tam_arg; i++){
+        if(strcmp(args[i], STG_OUTPUT_FILE) == 0){
+            strcpy(namefile,args[i+1]);//NameFILE
+        }
     }
 }
 
@@ -165,7 +202,7 @@ int main()
                 exit(0);
             }
 
-            waitpid(pid,NULL,0);; //Aguardar o processo filho terminar 
+            waitpid(pid,NULL,0);//Aguardar o processo filho terminar 
         }
     }
 }
