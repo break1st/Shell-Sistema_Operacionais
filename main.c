@@ -8,6 +8,8 @@
 
 #define TAM 300
 #define STG_PIPE "|"
+#define PONTA_LEITURA 0
+#define PONTA_ESCRITA 1
 
 
 void lower(char *entry)
@@ -65,12 +67,13 @@ int argsPipe(char *args[], int tam_arg,char *args_pipe[], int *tam_pipe, int ini
 
 
 int verificaPipe(char *args[], int tam_arg, int init){
+    int qtd = 0;
     for(int i = init;i < tam_arg; i++){
-    if(strcmp(args[i], STG_PIPE) == 0){
-            return 1;
-        }
+        if(strcmp(args[i], STG_PIPE) == 0){
+                qtd++;
+            }
     }
-    return 0;
+    return qtd;
 }
 
 void criaPipe(int *pipefd){
@@ -81,13 +84,13 @@ void criaPipe(int *pipefd){
 }
 
 
-pid_t do_fork(int pipefd[],int decriptor,int old_decriptor,char *args[]){//PIPE Direita descriptor = 1, old_decriptor = STDOUT_FILENO                                                     
+pid_t do_fork(int pipefd[],int pontaPipe,int old_decriptor,char *args[]){//PIPE Direita descriptor = 1, old_decriptor = STDOUT_FILENO                                                     
     pid_t pidB = fork();
     if(pidB == 0){ //BLOCO de exec para o fork
-        dup2(pipefd[decriptor], old_decriptor);
+        dup2(pipefd[pontaPipe], old_decriptor);
 
-        close(pipefd[decriptor]);    //libera as pontas de escrita e leitura do pipe
-        if (decriptor == 1){
+        close(pipefd[pontaPipe]);    //libera as pontas de escrita e leitura do pipe
+        if (pontaPipe == 1){
             close(pipefd[0]);		
         }else{
             close(pipefd[1]);
@@ -122,24 +125,26 @@ int main()
 
         char *args_pipe[15];
         int tam_pipe = 0;
-        int tpipe = verificaPipe(args,tam_arg,0);
+        int tpipe = verificaPipe(args,tam_arg,0); //quantidade de pipes existente
 
         int init = 0; // Variavel de controle sobre a busca de argumentos para pipe(Guarda o INDEX do ultimo pipe + 1)
-        if (tpipe == 1){//Encontrou PIPE
+        if (tpipe >= 1){//TEM PIPE
 
             init = argsPipe(args, tam_arg,args_pipe,&tam_pipe,init); //Encontrar Primeiro Argumento
 
             int pipefd[2];
             criaPipe(pipefd);
             // ========== FILHO A ==========
-            do_fork(pipefd,1,STDOUT_FILENO,args_pipe);
+            // Alterar o descriptor de SAIDA padrão (Monitor) para a ponta de LEITURA do PIPE - processo a direita 
+            do_fork(pipefd,PONTA_ESCRITA,STDOUT_FILENO,args_pipe);
             
-            //Busca de Argumentos 
+            
             tam_pipe = 0;
-            init = argsPipe(args, tam_arg,args_pipe,&tam_pipe,init);
+            init = argsPipe(args, tam_arg,args_pipe,&tam_pipe,init); //Busca de Argumentos 
 
             // ========== FILHO B ==========
-            pid_t pidb = do_fork(pipefd,0,STDIN_FILENO,args_pipe);
+            // Alterar o descriptor de ENTRADA padrão (Teclado) para a ponta de LEITURA do PIPE - processo a direita 
+            pid_t pidb = do_fork(pipefd,PONTA_LEITURA,STDIN_FILENO,args_pipe);
 
 
             //Encerrar DUP2
