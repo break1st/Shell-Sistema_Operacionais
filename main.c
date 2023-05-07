@@ -93,11 +93,8 @@ void readFile(FILE *fp,char namefile[]){
         exit(1);
     }else{
         char entry[120];
-        while (!feof(p)){
-            if (!filelength(fileno(p))){  /* teste para saber se o tamanho do arquivo é zero */
-                break;
-            }
-            fgets(entry,120, p);
+        while (!feof(fp)){
+            fgets(entry,120, fp);
             printf("\n%s",entry);
         }
     }
@@ -108,15 +105,6 @@ void writeFile(FILE *fp,char namefile[],char text[120]){
         printf("Erro ao criar arquivo");
     }else{
         fprintf(fp, "%s",text);
-    }
-}
-
-void IOfile(char *args[], int tam_arg, int init){
-    char namefile[120];
-    for(int i = init;i < tam_arg; i++){
-        if(strcmp(args[i], STG_OUTPUT_FILE) == 0){
-            strcpy(namefile,args[i+1]);//NameFILE
-        }
     }
 }
 
@@ -133,11 +121,35 @@ pid_t do_fork(int pipefd[],int pontaPipe,int old_decriptor,char *args[]){//PIPE 
             close(pipefd[1]);
         }
         execvp(args[0], args); // substitui o binário do filho A pelo do programa apontado pelo progA
-        perror("Falha na substituicao (execvp) do filho A pelo programa ls");
+        perror("Falha na execvp");
         exit(1); //se o exec der errado, fecha o processo filho A pois não faz sentido continuar
     } // filho A
     return pidB; 
 }
+
+
+void IOfile(char *args[], int tam_arg, int init){
+    char namefile[120];
+    char *args_[15];
+    int tamArgs = 0;
+    for(int i = init;i < tam_arg; i++){
+        if(strcmp(args[i], STG_OUTPUT_FILE) == 0){ //> Salva no arquivo 
+            strcpy(namefile,args[i+1]);//NameFILE
+
+            FILE *fp = fopen(namefile,"r");
+            int fp = fileno(fp); //descritor do arquivo 
+
+            
+
+        }else if (strcmp(args[i], STG_INPUT_FILE) == 0){ //< Alterar saida de dados para a escrita no arquivo
+            strcpy(namefile,args[i+1]);//NameFILE
+            printf("{%s,%s,%s}",args_[0],args_[1],args_[2]);
+        }else{
+            args_[tamArgs++] = args[i];
+        }
+    }
+}
+
 
 int main()
 {
@@ -190,6 +202,8 @@ int main()
             
             waitpid(pidb,NULL,0); // Aguardar o ultimo processo ser finalizado
         }else{
+
+            IOfile(args,tam_arg,0);
             //Criar um filho com o fork 
             pid_t pid = fork();
             if (pid == -1) {      /* fork() failed */
