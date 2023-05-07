@@ -1,3 +1,27 @@
 # ninja log v5
 1	37	1683153027871194827	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
 38	57	1683153027891195078	Shell_Sistema_Operacionais	c538a987d098e06a
+0	121	1683401007181565222	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+121	150	1683401007213565355	Shell_Sistema_Operacionais	c538a987d098e06a
+0	33	1683401183046318884	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+33	51	1683401183062318954	Shell_Sistema_Operacionais	c538a987d098e06a
+0	29	1683401370511151346	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+29	43	1683401370527151418	Shell_Sistema_Operacionais	c538a987d098e06a
+0	26	1683401403943302241	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+27	41	1683401403959302313	Shell_Sistema_Operacionais	c538a987d098e06a
+0	27	1683401473375617525	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+27	40	1683401473387617580	Shell_Sistema_Operacionais	c538a987d098e06a
+0	27	1683401491003697955	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+27	42	1683401491019698027	Shell_Sistema_Operacionais	c538a987d098e06a
+0	27	1683401559496011788	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+27	40	1683401559508011844	Shell_Sistema_Operacionais	c538a987d098e06a
+0	24	1683401568172051685	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+24	38	1683401568184051740	Shell_Sistema_Operacionais	c538a987d098e06a
+0	43	1683403205638635378	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+43	68	1683403205662635536	Shell_Sistema_Operacionais	c538a987d098e06a
+0	42	1683403227138777271	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+42	59	1683403227154777376	Shell_Sistema_Operacionais	c538a987d098e06a
+0	61	1683403268951051875	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+61	85	1683403268975052032	Shell_Sistema_Operacionais	c538a987d098e06a
+1	33	1683403283599147678	CMakeFiles/Shell_Sistema_Operacionais.dir/main.c.o	24f0abe4f0471e6c
+33	52	1683403283615147782	Shell_Sistema_Operacionais	c538a987d098e06a
